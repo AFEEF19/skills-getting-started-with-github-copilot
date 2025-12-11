@@ -27,6 +27,49 @@ document.addEventListener("DOMContentLoaded", () => {
           <p><strong>Availability:</strong> ${spotsLeft} spots left</p>
         `;
 
+        // Participants collapsible section
+        const participants = Array.isArray(details.participants) ? details.participants : [];
+        const detailsEl = document.createElement("details");
+        detailsEl.className = "participants-section";
+        const summary = document.createElement("summary");
+        summary.textContent = `Participants (${participants.length})`;
+        detailsEl.appendChild(summary);
+
+        const ul = document.createElement("ul");
+        ul.className = "participants-list";
+        if (participants.length === 0) {
+          const li = document.createElement("li");
+          li.className = "participant-item empty";
+          li.textContent = "No participants yet";
+          ul.appendChild(li);
+        } else {
+          participants.forEach((p) => {
+            const li = document.createElement("li");
+            li.className = "participant-item";
+
+            const badge = document.createElement("span");
+            badge.className = "participant-badge";
+            // derive initials from a name/email string
+            const initials = (typeof p === "string" ? p : (p.name || ""))
+              .split(/\s+/)
+              .map(s => s[0] || "")
+              .join("")
+              .slice(0,2)
+              .toUpperCase() || "•";
+            badge.textContent = initials;
+
+            const nameSpan = document.createElement("span");
+            nameSpan.className = "participant-name";
+            nameSpan.textContent = p;
+
+            li.appendChild(badge);
+            li.appendChild(nameSpan);
+            ul.appendChild(li);
+          });
+        }
+        detailsEl.appendChild(ul);
+        activityCard.appendChild(detailsEl);
+
         activitiesList.appendChild(activityCard);
 
         // Add option to select dropdown
