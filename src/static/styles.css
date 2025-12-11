@@ -234,3 +234,19 @@ footer {
   text-overflow: ellipsis;
   max-width: 260px;
 }
+
+/* delete/unregister button */
+.delete-btn {
+  margin-left: 8px;
+  background: transparent;
+  border: none;
+  color: #c62828;
+  font-size: 14px;
+  cursor: pointer;
+  padding: 6px 8px;
+  border-radius: 6px;
+}
+
+.delete-btn:hover {
+  background: rgba(198, 40, 40, 0.06);
+}
